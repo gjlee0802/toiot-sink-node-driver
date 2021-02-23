@@ -105,7 +105,7 @@ actuator = Actuator()
 mqtt_run()
 # create socket and run health_check thread
 health_check.set_health_check_mode(True)
-healthcheck_server = '10.5.110.37' #'220.70.2.5'
+healthcheck_server = '10.5.110.36' #'220.70.2.5'
 healthcheck_port = 8085
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print('Connect to HealthCheck Server...')
@@ -156,7 +156,7 @@ def delete_node(node):
 # handle actuator
 @app.route('/actuator', methods=['GET', 'POST'])
 def actuator_command():
-    json_data = request.json
+    json_data = request.get_json(silent=True)
     actuator.send_req(client, json_data)
     return http_response_code['success200']
 
